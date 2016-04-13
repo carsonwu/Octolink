@@ -1,0 +1,18 @@
+//
+//  Octolink-prefix.pch
+//  Octolink
+//
+//  Created by 邦成 吴 on 11/4/2016.
+//  Copyright © 2016 carson. All rights reserved.
+//
+
+#ifndef Octolink_prefix_pch
+#define Octolink_prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "GestureManager.h"
+
+#endif /* Octolink_prefix_pch */
