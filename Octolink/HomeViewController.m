@@ -10,7 +10,7 @@
 
 @interface HomeViewController (){
     NSMutableArray *addedGestres;
-    MFMailComposeViewController *mailComposer;
+    
 }
 
 @end
@@ -20,7 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Octolink";
     [self setupRightBarButton];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"app_main_interface"]]];
     addedGestres = [NSMutableArray arrayWithArray:[[GestureManager sharedInstance] getAddedGesture]];
     if (addedGestres.count>0) {
         for (Gesture *g in addedGestres){
@@ -93,20 +95,46 @@
     
     switch (gesture.appType) {
         case kPhone:{
-            NSString *phoneNumber = [@"tel:" stringByAppendingString:[[gesture.relatedData objectForKey:@"mobileNumber"] length]>0? [gesture.relatedData objectForKey:@"mobileNumber"]:[gesture.relatedData objectForKey:@"homeNumber"]];
-            NSLog(@"tel:%@",phoneNumber);
-            phoneNumber  = [phoneNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+            NSString *cleanedString = [[[[gesture.relatedData objectForKey:@"mobileNumber"] length]>0? [gesture.relatedData objectForKey:@"mobileNumber"]:[gesture.relatedData objectForKey:@"homeNumber"] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
+            NSString *escapedPhoneNumber = [cleanedString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSString *phoneURLString = [NSString stringWithFormat:@"tel:%@", escapedPhoneNumber];
+            NSURL *phoneURL = [NSURL URLWithString:phoneURLString];
+            
+            if ([[UIApplication sharedApplication] canOpenURL:phoneURL]) {
+                [[UIApplication sharedApplication] openURL:phoneURL];
+            }
+            
+//            NSString *phoneNumber = [@"tel:" stringByAppendingString:[[gesture.relatedData objectForKey:@"mobileNumber"] length]>0? [gesture.relatedData objectForKey:@"mobileNumber"]:[gesture.relatedData objectForKey:@"homeNumber"]];
+//            NSLog(@"tel:%@",phoneNumber);
+//            phoneNumber  = [phoneNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
         }
             break;
-        case kSMS:
+        case kSMS:{
+            if(![MFMessageComposeViewController canSendText]) {
+                [self showAlertViewWithTitle:@"Error" andMessage:@"Your device doesn't support SMS."];
+                return;
+            }
+            NSString *phoneNumber = [@"tel:" stringByAppendingString:[[gesture.relatedData objectForKey:@"mobileNumber"] length]>0? [gesture.relatedData objectForKey:@"mobileNumber"]:[gesture.relatedData objectForKey:@"homeNumber"]];
+            NSArray *recipents = @[phoneNumber];
+//            NSString *message = [NSString stringWithFormat:@"Just sent the %@ file to your email. Please check!"];
             
+            MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+            messageController.messageComposeDelegate = self;
+            [messageController setRecipients:recipents];
+//            [messageController setBody:message];
+            
+            [self presentViewController:messageController animated:YES completion:nil];
+        }
             break;
         case kEmail:{
-            mailComposer = [[MFMailComposeViewController alloc] init];
-            mailComposer.mailComposeDelegate = self;
-            [self presentViewController:mailComposer animated:YES completion:nil];
+            if ([MFMailComposeViewController canSendMail]){
+                MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
+                mailComposer.mailComposeDelegate = self;
+                [self presentViewController:mailComposer animated:YES completion:nil];
+            }else{
+                [self showAlertViewWithTitle:@"Error" andMessage:@"Please setup your Email account first."];
+            }
         }
             break;
         case kLocation:
@@ -159,10 +187,42 @@
         //result handling;
     }
     if (error) {
-        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [av show];
+        [self showAlertViewWithTitle:@"Error" andMessage:error.localizedDescription];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - MFMessageComposeViewControllerDelegate
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result{
+
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            [self showAlertViewWithTitle:@"Error" andMessage:@"Fail to send SMS."];
+            break;
+        }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)showAlertViewWithTitle:(NSString*)title andMessage:(NSString*)message{
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [av show];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
 }
 
 @end

@@ -25,6 +25,7 @@
     [self.myCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"cell"];
     [self createDataSource];
     gesture = [[Gesture alloc] init];
+    self.title = @"Applications";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,6 +78,16 @@
         case 1:
         {
             //SMS
+            CNContactStore *contactStore = [CNContactStore new];
+            [contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError *error) {
+                NSLog(@"Access to contacts %@ by user", granted ? @"granted" : @"denied");
+                if (granted) {
+                    gesture.appType = kSMS;
+                    _addressBookController = [[ABPeoplePickerNavigationController alloc] init];
+                    [_addressBookController setPeoplePickerDelegate:self];
+                    [self presentViewController:_addressBookController animated:YES completion:nil];
+                }
+            }];
         }
             break;
         case 2:
@@ -141,7 +152,7 @@
     CFRelease(phonesRef);
     
     gesture.relatedData = contactInfoDict;
-    gesture.title = [NSString stringWithFormat:@"Call %@ %@", [contactInfoDict objectForKey:@"firstName"], [contactInfoDict objectForKey:@"lastName"]];
+    gesture.title = gesture.appType==kPhone? [NSString stringWithFormat:@"Call %@ %@", [contactInfoDict objectForKey:@"firstName"], [contactInfoDict objectForKey:@"lastName"]]:[NSString stringWithFormat:@"Text %@ %@", [contactInfoDict objectForKey:@"firstName"], [contactInfoDict objectForKey:@"lastName"]];
     
     [_addressBookController dismissViewControllerAnimated:YES completion:^{
         GestureSelectionViewController *vc = [[GestureSelectionViewController alloc] initWithGestureData:gesture];

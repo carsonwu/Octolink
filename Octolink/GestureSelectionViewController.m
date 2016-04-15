@@ -35,7 +35,7 @@
 
     [self createDataSource];
     home = (HomeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
-
+    self.title = @"Gestures";
 }
 
 - (void)createDataSource{
@@ -182,5 +182,7 @@
 }
 
 - (IBAction)customGestureBtnClicked:(id)sender {
+    CustomGestureViewController *customVC = [[CustomGestureViewController alloc] initWithNibName:@"CustomGestureViewController" bundle:nil];
+    [self.navigationController pushViewController:customVC animated:YES];
 }
 @end

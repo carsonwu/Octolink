@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		373C709A1CBE5C3700ED1111 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373C70991CBE5C3700ED1111 /* MessageUI.framework */; };
+		3742D4911CBE6FAF009C82D2 /* CustomGestureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3742D48F1CBE6FAF009C82D2 /* CustomGestureViewController.m */; };
+		3742D4921CBE6FAF009C82D2 /* CustomGestureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3742D4901CBE6FAF009C82D2 /* CustomGestureViewController.xib */; };
 		375BD5B71CBBEA52000D15AA /* GestureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 375BD5B61CBBEA52000D15AA /* GestureManager.m */; };
 		375BD5BB1CBBEBC7000D15AA /* Gesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 375BD5BA1CBBEBC7000D15AA /* Gesture.m */; };
 		375BD5BD1CBBEE93000D15AA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375BD5BC1CBBEE93000D15AA /* UIKit.framework */; };
@@ -50,6 +52,9 @@
 
 /* Begin PBXFileReference section */
 		373C70991CBE5C3700ED1111 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		3742D48E1CBE6FAF009C82D2 /* CustomGestureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomGestureViewController.h; sourceTree = "<group>"; };
+		3742D48F1CBE6FAF009C82D2 /* CustomGestureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomGestureViewController.m; sourceTree = "<group>"; };
+		3742D4901CBE6FAF009C82D2 /* CustomGestureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomGestureViewController.xib; sourceTree = "<group>"; };
 		375BD5B51CBBEA52000D15AA /* GestureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureManager.h; sourceTree = "<group>"; };
 		375BD5B61CBBEA52000D15AA /* GestureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GestureManager.m; sourceTree = "<group>"; };
 		375BD5B91CBBEBC7000D15AA /* Gesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gesture.h; sourceTree = "<group>"; };
@@ -218,6 +223,9 @@
 				375BD5C01CBC16C4000D15AA /* GestureSelectionViewController.m */,
 				375BD5C11CBC16C4000D15AA /* GestureSelectionViewController.xib */,
 				375BD5C41CBC1985000D15AA /* gestureItem.xib */,
+				3742D48E1CBE6FAF009C82D2 /* CustomGestureViewController.h */,
+				3742D48F1CBE6FAF009C82D2 /* CustomGestureViewController.m */,
+				3742D4901CBE6FAF009C82D2 /* CustomGestureViewController.xib */,
 			);
 			name = "view controllers";
 			sourceTree = "<group>";
@@ -333,6 +341,7 @@
 				375BD5C31CBC16C4000D15AA /* GestureSelectionViewController.xib in Resources */,
 				37D2B56D1CBAD5070038B847 /* appliactionItem.xib in Resources */,
 				37D2B5361CBAB8DA0038B847 /* Assets.xcassets in Resources */,
+				3742D4921CBE6FAF009C82D2 /* CustomGestureViewController.xib in Resources */,
 				37D2B5341CBAB8D90038B847 /* Main.storyboard in Resources */,
 				37D2B5611CBABA030038B847 /* HomeViewController.xib in Resources */,
 			);
@@ -368,6 +377,7 @@
 				37D2B5601CBABA030038B847 /* HomeViewController.m in Sources */,
 				37D2B5651CBAC5380038B847 /* SettingViewController.m in Sources */,
 				375BD5C21CBC16C4000D15AA /* GestureSelectionViewController.m in Sources */,
+				3742D4911CBE6FAF009C82D2 /* CustomGestureViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

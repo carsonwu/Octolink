@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ApplicationSelectionViewController.h"
 #import "Gesture.h"
+#import "HomeViewController.h"
 
 @interface SettingViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;

@@ -10,7 +10,7 @@
 #import "SettingViewController.h"
 #import <MessageUI/MessageUI.h>
 
-@interface HomeViewController : UIViewController<UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate>
+@interface HomeViewController : UIViewController<UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
 
 - (void)gestureHandler:(UIGestureRecognizer*)sender;
 

@@ -18,6 +18,7 @@
     NSArray* dayNightModeDataSource;
     NSArray* gestureImages;
     NSMutableArray *dataSource;
+    HomeViewController * home;
 }
 
 - (void)viewDidLoad {
@@ -25,6 +26,7 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"Setting";
     [self createDataSource];
+    home = (HomeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -122,6 +124,7 @@
     if (indexPath.section == 2 && indexPath.row!=0) {
         Gesture *g = [[dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         [[GestureManager sharedInstance] removeGesture:g];
+        [home.view removeGestureRecognizer:g.gesture];
         [self createDataSource];
         [tableView reloadData];
     }

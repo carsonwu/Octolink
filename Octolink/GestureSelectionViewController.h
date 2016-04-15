@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HomeViewController.h"
+#import "CustomGestureViewController.h"
 
 typedef NS_ENUM(NSInteger, gestureType1)
 {
