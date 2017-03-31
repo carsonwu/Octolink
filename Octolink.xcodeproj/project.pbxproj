@@ -297,7 +297,6 @@
 				TargetAttributes = {
 					37D2B5251CBAB8D90038B847 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = NNRT753ZDL;
 					};
 					37D2B53E1CBAB8DA0038B847 = {
 						CreatedOnToolsVersion = 7.3;

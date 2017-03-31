@@ -32,6 +32,7 @@
             [self.view addGestureRecognizer:gsds];
         }
     }
+    [[GestureManager sharedInstance] sameTypeRecognizerHandlingInView:self.view];
 }
 
 - (void)setupRightBarButton{

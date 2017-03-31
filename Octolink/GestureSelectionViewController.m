@@ -161,6 +161,7 @@
     tap.numberOfTapsRequired = numberOfTabs;
     tap.numberOfTouchesRequired = numberOfFingers;
     [home.view addGestureRecognizer:tap];
+    [[GestureManager sharedInstance] sameTypeRecognizerHandlingInView:home.view];
     return tap;
 }
 

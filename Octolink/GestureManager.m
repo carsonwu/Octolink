@@ -67,4 +67,30 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)sameTypeRecognizerHandlingInView:(UIView*) view{
+    UITapGestureRecognizer *single, *doubleTap, *tripleTap;
+    for (UIGestureRecognizer *r in view.gestureRecognizers){
+        if ([r isKindOfClass:[UITapGestureRecognizer class]]) {
+            UITapGestureRecognizer *temp = (UITapGestureRecognizer*)r;
+            if (temp.numberOfTapsRequired == 1) {
+                single = temp;
+            }else if (temp.numberOfTapsRequired == 2){
+                doubleTap = temp;
+            }else if (temp.numberOfTapsRequired == 3){
+                tripleTap = temp;
+            }
+        }
+    }
+    if (single && doubleTap && !tripleTap) {
+        [single requireGestureRecognizerToFail:doubleTap];
+    }else if(!single && doubleTap && tripleTap){
+        [doubleTap requireGestureRecognizerToFail:tripleTap];
+    }else if (single && !doubleTap && tripleTap){
+        [single requireGestureRecognizerToFail:tripleTap];
+    }else if (single && doubleTap && tripleTap){
+        [single requireGestureRecognizerToFail:doubleTap];
+        [doubleTap requireGestureRecognizerToFail:tripleTap];
+    }
+}
+
 @end

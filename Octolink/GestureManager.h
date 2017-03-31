@@ -20,5 +20,6 @@
 - (void)removeGesture:(Gesture*)gesture;
 - (NSMutableArray*)getAddedGesture;
 - (void)addGesture:(Gesture*)gesture;
+- (void)sameTypeRecognizerHandlingInView:(UIView*) view;
 
 @end
